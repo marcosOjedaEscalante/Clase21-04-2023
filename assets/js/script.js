@@ -7,30 +7,34 @@ btnConsultar.addEventListener('click', function () {
         dataType: "json",
         success: function (response) {
             console.log(response);
-            var chart = new CanvasJS.Chart("graficoUno", {
-                theme: "dark1", // "light2", "dark1", "dark2"
-                animationEnabled: true, // change to true		
-                title: {
-                    text: response.name
-                },
-                data: [
-                    {
-                        // Change type to "bar", "area", "spline", "pie",etc.
-                        type: "column",
-                        dataPoints: [
-                            { label: "hp", y: response.stats[0].base_stat },
-                            { label: "attack", y: response.stats[1].base_stat },
-                            { label: "defense", y: response.stats[2].base_stat },
-                            { label: "special-attack", y: response.stats[3].base_stat },
-                            { label: "special-defense", y: response.stats[4].base_stat },
-                            { label: "speed", y: response.stats[5].base_stat }
-                        ]
-                    }
-                ]
-            });
-            chart.render();
+            crearGrafico(response);
         }
     });
 
     txtNombrePokemon.value = '';
 });
+
+function crearGrafico(datos) {
+    var chart = new CanvasJS.Chart("graficoUno", {
+        theme: "dark1", // "light2", "dark1", "dark2"
+        animationEnabled: true, // change to true		
+        title: {
+            text: datos.name
+        },
+        data: [
+            {
+                // Change type to "bar", "area", "spline", "pie",etc.
+                type: "column",
+                dataPoints: [
+                    { label: "hp", y: datos.stats[0].base_stat },
+                    { label: "attack", y: datos.stats[1].base_stat },
+                    { label: "defense", y: datos.stats[2].base_stat },
+                    { label: "special-attack", y: datos.stats[3].base_stat },
+                    { label: "special-defense", y: datos.stats[4].base_stat },
+                    { label: "speed", y: datos.stats[5].base_stat }
+                ]
+            }
+        ]
+    });
+    chart.render();
+}
